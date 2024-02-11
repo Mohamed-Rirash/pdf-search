@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.api import pdfreader
+from api import pdfreader
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
