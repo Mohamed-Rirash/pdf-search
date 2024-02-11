@@ -3,7 +3,8 @@ from api import pdfreader
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None)
+
 
 origins = [
     "https://pdf-search-coral.vercel.app/",
