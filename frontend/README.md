@@ -6,11 +6,13 @@ First, run the development server:
 
 ```bash
 npm run dev
+npm install
 # or
 yarn dev
 # or
 pnpm dev
 # or
+bun install
 bun dev
 ```
 
