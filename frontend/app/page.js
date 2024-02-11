@@ -1,13 +1,9 @@
-"use client";
-
 import { Button } from "@components/ui/button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
   return (
     <main className="">
-     
       <div className="flex min-h-screen ">
         <div className="m-auto text-center p-4">
           <h1 className=" text-5xl sm:text-6xl font-extrabold text-blue-500 mb-4 leading-tight">
@@ -18,12 +14,11 @@ export default function Home() {
             documents, enhancing productivity and information accessibility.
           </p>
           <div className="space-x-4">
-            <Button
-              onClick={() => router.push("/search")}
-              className="text-xl py-6 px-6 bg-blue-500 hover:bg-blue-700"
-            >
-              Get Started
-            </Button>
+            <Link href="/search">
+              <Button className="text-xl py-6 px-6 bg-blue-500 hover:bg-blue-700">
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

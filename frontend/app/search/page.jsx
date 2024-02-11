@@ -22,6 +22,7 @@ function PDFTextSearchForm() {
     setSearchText(event.target.value);
   };
 
+  console.log("Home",data)
   const handleSubmit = (event) => {
     event.preventDefault();
     postFile({ text: searchText, file: file });
@@ -105,7 +106,7 @@ async function searchTextInPDF(searchText, filePath) {
 
   try {
     const response = await axios.post(
-      "https://pdf-search-zcp4.onrender.com/api/service/search-text",
+      "https://pdf-search-hbmz.onrender.com/api/service/search-text",
       formData,
       {
         headers: {
@@ -113,7 +114,7 @@ async function searchTextInPDF(searchText, filePath) {
         },
       }
     );
-
+    console.log("from axios", response);
     return response.data.result;
   } catch (error) {
     return error.response.data;
