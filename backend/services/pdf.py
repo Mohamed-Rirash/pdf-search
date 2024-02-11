@@ -16,7 +16,7 @@ async def search_text_in_pdfs(search_text, files):
                     "instances": len(text_instances),
                     "found": True
                 })
-                # break  
+               # break  
         pdf.close()  
 
     if not results:
