@@ -6,8 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
-    "localhost:3000"
+    "https://pdf-search-coral.vercel.app/",
+    "pdf-search-coral.vercel.app/"
 ]
 
 app.add_middleware(
