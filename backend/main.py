@@ -7,7 +7,10 @@ app = FastAPI()
 
 origins = [
     "https://pdf-search-coral.vercel.app/",
-    "pdf-search-coral.vercel.app/"
+    "pdf-search-coral.vercel.app/",
+
+    "http://localhost:3000",
+    "localhost:3000"
 ]
 
 app.add_middleware(
