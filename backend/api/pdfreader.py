@@ -1,7 +1,7 @@
 from typing import Annotated, List
 from fastapi import APIRouter, status, File, UploadFile, Form, HTTPException
 from fastapi.responses import JSONResponse
-from backend.services.pdf import search_text_in_pdfs
+from services.pdf import search_text_in_pdfs
 
 router = APIRouter(
     prefix="/api/service",
