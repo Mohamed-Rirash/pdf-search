@@ -88,7 +88,7 @@ function PDFTextSearchForm() {
             />
           ))
         ) : (
-          <p className="text-2xl font-bold text-red-500 text-center">
+          <p className="text-2xl font-bold text-gray-300 text-center">
             {data && data.detail}
           </p>
         )}
@@ -101,14 +101,11 @@ async function searchTextInPDF(searchText, filePath) {
   const formData = new FormData();
   formData.append("search_text", searchText);
 
-  // Assuming you have the file available as a File object. If you're running this in a Node.js environment,
-  // you might need to use fs.readFile or similar to get the file data.
-  // For browser environments or frameworks like React, you would typically get the File object from an <input type="file" /> element.
   formData.append("files", filePath, filePath.name);
 
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/service/search-text",
+      "https://pdf-search-zcp4.onrender.com/api/service/search-text",
       formData,
       {
         headers: {
