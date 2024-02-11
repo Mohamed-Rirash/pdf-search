@@ -10,7 +10,11 @@ function PDFTextSearchForm() {
   const [searchText, setSearchText] = useState("");
   const [file, setFile] = useState(null);
 
-  const { mutate: postFile, data } = useMutation({
+  const {
+    mutate: postFile,
+    data,
+    isPending,
+  } = useMutation({
     mutationFn: async ({ file, text }) => searchTextInPDF(text, file),
   });
 
@@ -22,7 +26,7 @@ function PDFTextSearchForm() {
     setSearchText(event.target.value);
   };
 
-  console.log("Home",data)
+  console.log("Home", data);
   const handleSubmit = (event) => {
     event.preventDefault();
     postFile({ text: searchText, file: file });
@@ -71,9 +75,21 @@ function PDFTextSearchForm() {
         </div>
       </form>
 
-      <div className="mt-20">
+      <div className="mt-20 relative">
+        {isPending && (
+          <>
+            <div
+              className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-blue-500 border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            >
+              <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                Loading...
+              </span>
+            </div>
+          </>
+        )}
         {data && (
-          <h1 className="text-xl font-bold text-blue-600">
+          <h1 className="text-xl font-bold text-blue-600 mb-10">
             Totol result:{data && data.length}
           </h1>
         )}
