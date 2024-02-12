@@ -17,19 +17,20 @@ function PDFTextSearchForm() {
   } = useMutation({
     mutationFn: async ({ file, text }) => searchTextInPDF(text, file),
   });
-
   const handleFileChange = (event) => {
-    setFile(event.target.files[0] || null);
+    setFile([...event.target.files]); // Set an array of files
   };
+  // const handleFileChange = (event) => {
+  //   setFile(event.target.files[0] || null);
+  // };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    postFile({ text: searchText, file: file });
+    postFile({ text: searchText, file }); // 'file' is now an array
   };
 
   return (
@@ -60,6 +61,7 @@ function PDFTextSearchForm() {
           </label>
           <Input
             type="file"
+            multiple
             onChange={handleFileChange}
             required
             className="block w-full file:px-3 file:py-1 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
@@ -97,7 +99,7 @@ function PDFTextSearchForm() {
         {Array.isArray(data) ? (
           data.map((result) => (
             <SearchResultCard
-              key={result.page_number}
+              key={result.instances}
               fileName={result.file_name}
               pageNumber={result.page_number}
               instances={result.instances}
@@ -113,12 +115,14 @@ function PDFTextSearchForm() {
     </div>
   );
 }
-
-async function searchTextInPDF(searchText, filePath) {
+async function searchTextInPDF(searchText, files) {
   const formData = new FormData();
   formData.append("search_text", searchText);
 
-  formData.append("files", filePath, filePath.name);
+  // Append each file to the form data
+  for (let i = 0; i < files.length; i++) {
+    formData.append(`files`, files[i], files[i].name);
+  }
 
   try {
     const response = await axios.post(
@@ -136,5 +140,28 @@ async function searchTextInPDF(searchText, filePath) {
     return error.response.data;
   }
 }
+
+// async function searchTextInPDF(searchText, filePath) {
+//   const formData = new FormData();
+//   formData.append("search_text", searchText);
+
+//   formData.append("files", filePath, filePath.name);
+
+//   try {
+//     const response = await axios.post(
+//       "https://pdf-search-hbmz.onrender.com/api/service/search-text",
+//       formData,
+//       {
+//         headers: {
+//           "Content-Type": "multipart/form-data",
+//         },
+//       }
+//     );
+
+//     return response.data.result;
+//   } catch (error) {
+//     return error.response.data;
+//   }
+// }
 
 export default PDFTextSearchForm;
